@@ -2,4 +2,10 @@ data/raw/
 data/docs/
 data/texts/
 data/*.db
+data/*.jsonl
+data/state.json
+# keep committed aggregates for the static site
+!data/aggregates/
 __pycache__/
+.venv/
+.pytest_cache/

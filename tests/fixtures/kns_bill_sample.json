@@ -1,0 +1,5 @@
+[
+  {"BillID": 5, "KnessetNum": 1, "Name": "חוק שכר חברי הכנסת, התש\"ט-1949", "SubTypeDesc": "ממשלתית", "StatusID": 118, "Number": 1, "PrivateNumber": null, "CommitteeID": null, "LastUpdatedDate": "2014-09-10T14:26:43.75"},
+  {"BillID": 20, "KnessetNum": 7, "Name": "חוק מקצועות רפואיים (אגרות), התשל\"א-1971", "SubTypeDesc": "ממשלתית", "StatusID": 118, "Number": 2, "PrivateNumber": null, "CommitteeID": null, "LastUpdatedDate": "2014-09-10T14:26:43.75"},
+  {"BillID": 15752, "KnessetNum": 16, "Name": "חוק רשות הספנות והנמלים, התשס\"ד-2004", "SubTypeDesc": "ממשלתית", "StatusID": 118, "Number": 3, "PrivateNumber": null, "CommitteeID": 4191, "LastUpdatedDate": "2014-09-10T14:26:43.75"}
+]

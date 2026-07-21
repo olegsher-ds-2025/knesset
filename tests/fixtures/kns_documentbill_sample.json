@@ -1,0 +1,5 @@
+[
+  {"DocumentBillID": "1", "BillID": 15752, "GroupTypeDesc": "קטע מדברי הכנסת", "FilePath": "https://fs.knesset.gov.il/16/law/16_ls_old.doc"},
+  {"DocumentBillID": "2", "BillID": 15752, "GroupTypeDesc": "חומר רקע", "FilePath": "https://fs.knesset.gov.il/16/law/16_ls_bk_1.pdf"},
+  {"DocumentBillID": "3", "BillID": 15752, "GroupTypeDesc": "חומר רקע", "FilePath": "https://fs.knesset.gov.il/16/law/16_ls_bk_2.docx"}
+]
