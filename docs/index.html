@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Knesset Legislation Analyzer</title>
+<style>
+:root{
+  --plane:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e;
+  --muted:#898781; --grid:#e1e0d9; --border:rgba(11,11,11,.10);
+  --c-blue:#2a78d6; --c-orange:#eb6834; --c-violet:#4a3aa7; --c-aqua:#1baf7a;
+  --d-neg2:#a5211f; --d-neg1:#e34948; --d-zero:#c9c7c0; --d-pos1:#5598e7; --d-pos2:#184f95;
+  --warn-bg:#fff6e6; --warn-bd:#fab219;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme=light])){
+  --plane:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7;
+  --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,.10);
+  --c-blue:#3987e5; --c-orange:#d95926; --c-violet:#9085e9; --c-aqua:#199e70;
+  --d-neg2:#e66767; --d-neg1:#d03b3b; --d-zero:#4b4b48; --d-pos1:#3987e5; --d-pos2:#86b6ef;
+  --warn-bg:#2a2213; --warn-bd:#fab219;
+}}
+:root[data-theme=dark]{
+  --plane:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7;
+  --muted:#898781; --grid:#2c2c2a; --border:rgba(255,255,255,.10);
+  --c-blue:#3987e5; --c-orange:#d95926; --c-violet:#9085e9; --c-aqua:#199e70;
+  --d-neg2:#e66767; --d-neg1:#d03b3b; --d-zero:#4b4b48; --d-pos1:#3987e5; --d-pos2:#86b6ef;
+  --warn-bg:#2a2213; --warn-bd:#fab219;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+a{color:var(--c-blue)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 64px}
+header.site{border-bottom:1px solid var(--border);background:var(--surface)}
+header.site .wrap{padding-top:18px;padding-bottom:14px}
+h1{font-size:1.5rem;margin:.2rem 0}
+nav a{margin-right:16px;text-decoration:none;font-weight:600}
+nav a.active{color:var(--ink);border-bottom:2px solid var(--c-blue)}
+.disclaimer{background:var(--warn-bg);border:1px solid var(--warn-bd);
+  border-radius:8px;padding:12px 14px;margin:20px 0;font-size:.92rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:22px 0}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tile .n{font-size:2rem;font-weight:700}
+.tile .l{color:var(--ink2);font-size:.85rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:18px;margin:18px 0}
+.card h2{font-size:1.05rem;margin:.1rem 0 .3rem}
+.card .sub{color:var(--ink2);font-size:.85rem;margin-bottom:14px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.82rem;color:var(--ink2);margin-top:10px}
+.legend .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{color:var(--ink2);font-weight:600;cursor:default}
+td.he{direction:rtl;text-align:right;font-size:.95rem}
+.chip{display:inline-block;min-width:26px;text-align:center;border-radius:6px;
+  padding:1px 6px;font-variant-numeric:tabular-nums;color:#fff;font-size:.8rem;font-weight:600}
+.bkt{display:inline-block;border-radius:6px;padding:1px 7px;font-size:.76rem;
+  border:1px solid var(--border);margin:1px 2px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.controls input,.controls select{padding:8px 10px;border:1px solid var(--border);
+  border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.muted{color:var(--muted)}
+footer{color:var(--ink2);font-size:.82rem;margin-top:30px;border-top:1px solid var(--border);padding-top:14px}
+svg .bar:hover{opacity:.82}
+pre.rubric{white-space:pre-wrap;background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:16px;direction:ltr;overflow-x:auto;font-size:.85rem}
+</style>
+<script>
+(function(){var k='knesset-theme';try{var t=localStorage.getItem(k);
+if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}
+window.toggleTheme=function(){var d=document.documentElement;
+var cur=d.getAttribute('data-theme');var next=cur==='dark'?'light':'dark';
+d.setAttribute('data-theme',next);try{localStorage.setItem(k,next);}catch(e){}};})();
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h1>Knesset Legislation Analyzer</h1>
+<button onclick="toggleTheme()" style="background:var(--surface);color:var(--ink);
+ border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer">◐ theme</button>
+</div>
+<nav><a href="index.html" class="active">Dashboard</a><a href="bills.html">Browse bills</a><a href="methodology.html">Methodology</a></nav>
+</div></header>
+<div class="wrap">
+<div class="disclaimer"><strong>These scores are model-generated opinions, not facts.</strong> Each bill is scored by an automated classifier against a published rubric. Scores may be wrong or biased. See the <a href="methodology.html">methodology</a> for the model, the rubric, and known limitations.</div>
+<div class="tiles"><div class="tile"><div class="n">73</div><div class="l">bills fetched</div></div><div class="tile"><div class="n">73</div><div class="l">classified</div></div><div class="tile"><div class="n">35</div><div class="l">with full text</div></div><div class="tile"><div class="n">94%</div><div class="l">low confidence (&lt;0.5)</div></div></div>
+<div class="card"><h2>Where bills land</h2>
+<div class="sub">Derived buckets from the 3-axis scores. A bill can appear in more than one bucket.</div>
+<svg viewBox="0 0 620 130" width="100%" role="img" style="max-width:620px"><text x="142" y="19" text-anchor="end" font-size="12" fill="var(--ink2)">Citizen-oriented</text><rect class="bar" x="150" y="6" width="213" height="18" rx="4" fill="var(--c-blue)"><title>Citizen-oriented: 24</title></rect><text x="369" y="19" font-size="12" fill="var(--ink)" font-weight="600">24</text><text x="142" y="49" text-anchor="end" font-size="12" fill="var(--ink2)">Corporate-oriented</text><rect class="bar" x="150" y="36" width="35" height="18" rx="4" fill="var(--c-orange)"><title>Corporate-oriented: 4</title></rect><text x="191" y="49" font-size="12" fill="var(--ink)" font-weight="600">4</text><text x="142" y="79" text-anchor="end" font-size="12" fill="var(--ink2)">Power-concentrating</text><rect class="bar" x="150" y="66" width="17" height="18" rx="4" fill="var(--c-violet)"><title>Power-concentrating: 2</title></rect><text x="173" y="79" font-size="12" fill="var(--ink)" font-weight="600">2</text><text x="142" y="109" text-anchor="end" font-size="12" fill="var(--ink2)">Neutral/technical</text><rect class="bar" x="150" y="96" width="410" height="18" rx="4" fill="var(--muted)"><title>Neutral/technical: 46</title></rect><text x="566" y="109" font-size="12" fill="var(--ink)" font-weight="600">46</text></svg><div class="legend"><span><span class="sw" style="background:var(--c-blue)"></span>Citizen-oriented</span><span><span class="sw" style="background:var(--c-orange)"></span>Corporate-oriented</span><span><span class="sw" style="background:var(--c-violet)"></span>Power-concentrating</span><span><span class="sw" style="background:var(--muted)"></span>Neutral/technical</span></div></div>
+<div class="card"><h2>Score distribution per axis</h2>
+<div class="sub">Share of classified bills at each score, −2 to +2.</div>
+<svg viewBox="0 0 640 126" width="100%" role="img" style="max-width:640px"><text x="4" y="17" font-size="12" fill="var(--ink2)">Citizen welfare</text><text x="4" y="31" font-size="10" fill="var(--muted)">+2 helps citizens · −2 harms</text><rect class="bar" x="215" y="6" width="258" height="20" rx="3" fill="var(--d-zero)"><title>Citizen welfare score 0: 47 bills</title></rect><text x="344.0" y="20" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">47</text><rect class="bar" x="475" y="6" width="92" height="20" rx="3" fill="var(--d-pos1)"><title>Citizen welfare score +1: 17 bills</title></rect><text x="521.0" y="20" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">17</text><rect class="bar" x="569" y="6" width="47" height="20" rx="3" fill="var(--d-pos2)"><title>Citizen welfare score +2: 9 bills</title></rect><text x="592.5" y="20" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">9</text><text x="4" y="57" font-size="12" fill="var(--ink2)">Business &amp; regulation</text><text x="4" y="71" font-size="10" fill="var(--muted)">+2 helps business · −2 adds burdens</text><rect class="bar" x="215" y="46" width="36" height="20" rx="3" fill="var(--d-neg1)"><title>Business &amp; regulation score −1: 7 bills</title></rect><text x="233.0" y="60" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">7</text><rect class="bar" x="253" y="46" width="341" height="20" rx="3" fill="var(--d-zero)"><title>Business &amp; regulation score 0: 62 bills</title></rect><text x="423.5" y="60" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">62</text><rect class="bar" x="596" y="46" width="14" height="20" rx="3" fill="var(--d-pos1)"><title>Business &amp; regulation score +1: 3 bills</title></rect><rect class="bar" x="612" y="46" width="3" height="20" rx="3" fill="var(--d-pos2)"><title>Business &amp; regulation score +2: 1 bills</title></rect><text x="4" y="97" font-size="12" fill="var(--ink2)">Executive power</text><text x="4" y="111" font-size="10" fill="var(--muted)">+2 grows exec power · −2 grows checks</text><rect class="bar" x="215" y="86" width="25" height="20" rx="3" fill="var(--d-neg1)"><title>Executive power score −1: 5 bills</title></rect><text x="227.5" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">5</text><rect class="bar" x="242" y="86" width="364" height="20" rx="3" fill="var(--d-zero)"><title>Executive power score 0: 66 bills</title></rect><text x="424.0" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">66</text><rect class="bar" x="608" y="86" width="9" height="20" rx="3" fill="var(--d-pos1)"><title>Executive power score +1: 2 bills</title></rect></svg><div class="legend"><span><span class="sw" style="background:var(--d-neg2)"></span>score −2</span><span><span class="sw" style="background:var(--d-neg1)"></span>score −1</span><span><span class="sw" style="background:var(--d-zero)"></span>score 0</span><span><span class="sw" style="background:var(--d-pos1)"></span>score +1</span><span><span class="sw" style="background:var(--d-pos2)"></span>score +2</span></div></div>
+<div class="card"><h2>Bills by Knesset term</h2>
+<div class="sub">Coverage of the current dataset (a bounded sample; scale by re-running the sync).</div>
+<svg viewBox="0 0 620 160" width="100%" role="img" style="max-width:620px"><text x="142" y="19" text-anchor="end" font-size="12" fill="var(--ink2)">Knesset 1</text><rect class="bar" x="150" y="6" width="8" height="18" rx="4" fill="var(--c-blue)"><title>Knesset 1: 1</title></rect><text x="164" y="19" font-size="12" fill="var(--ink)" font-weight="600">1</text><text x="142" y="49" text-anchor="end" font-size="12" fill="var(--ink2)">Knesset 7</text><rect class="bar" x="150" y="36" width="8" height="18" rx="4" fill="var(--c-blue)"><title>Knesset 7: 1</title></rect><text x="164" y="49" font-size="12" fill="var(--ink)" font-weight="600">1</text><text x="142" y="79" text-anchor="end" font-size="12" fill="var(--ink2)">Knesset 16</text><rect class="bar" x="150" y="66" width="410" height="18" rx="4" fill="var(--c-blue)"><title>Knesset 16: 47</title></rect><text x="566" y="79" font-size="12" fill="var(--ink)" font-weight="600">47</text><text x="142" y="109" text-anchor="end" font-size="12" fill="var(--ink2)">Knesset 17</text><rect class="bar" x="150" y="96" width="8" height="18" rx="4" fill="var(--c-blue)"><title>Knesset 17: 1</title></rect><text x="164" y="109" font-size="12" fill="var(--ink)" font-weight="600">1</text><text x="142" y="139" text-anchor="end" font-size="12" fill="var(--ink2)">Knesset 25</text><rect class="bar" x="150" y="126" width="200" height="18" rx="4" fill="var(--c-blue)"><title>Knesset 25: 23</title></rect><text x="356" y="139" font-size="12" fill="var(--ink)" font-weight="600">23</text></svg></div>
+<footer>Generated 2026-07-21T10:20:58Z · model(s): heuristic-v0
+· <a href="https://knesset.gov.il/Odata/ParliamentInfo.svc/">source: Knesset OData</a></footer>
+</div>
+</body></html>

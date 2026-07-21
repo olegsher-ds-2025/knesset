@@ -2,14 +2,18 @@
 Last updated: 2026-07-21 (session 2, Phase 1)
 
 ## Status
-- Phase 0: DONE — repo scaffold, CLAUDE.md, skills, MCP server scaffold created
-- Phase 1: DONE — full ETL pipeline built + run live end-to-end (Opus, this session).
-  scripts/: _common, fetch_bills (T1.1), fetch_laws (T1.2), fetch_docs (T1.3),
-  load_db (T1.4), normalize (T1.5), sync (T1.6), plus fetch_statuses helper.
-  22 offline fixture tests pass (tests/), all scripts have --dry-run + are idempotent.
-- Phase 2 (classification) + Phase 3 (site): NOT STARTED. See plan doc.
-- Next action: scale the live sync (drop --limit) to backfill all bills, then start
-  Phase 2 (T2.2a Jetson Hebrew-quality gate).
+- Phase 0: DONE — scaffold.
+- Phase 1: DONE — ETL (scripts/ T1.1–T1.6 + fetch_statuses). Idempotent, --dry-run.
+- Phase 2: DONE — classify/ (backends + rubric validation + runner). Ran heuristic
+  placeholder over 73 bills; real model pass gated on T2.2a. See tasks/PHASE2_TASKS.md.
+- Phase 3: DONE — scripts/aggregate.py + build_site.py -> docs/ (dashboard, browse,
+  methodology). Theme-aware, inline-SVG charts, verbatim rubric + disclaimer.
+  Verified via Playwright screenshots (light + dark, no JS errors). CI + Pages
+  workflows added. 35 offline tests pass. All 3 phases committed + pushed to master.
+- Current dataset: 73 bills (Knessets 1,7,16,17,25), 35 with full text, in /storage/knesset.
+- Next actions: (1) enable GitHub Pages (serve docs/ or via pages.yml). (2) T2.2a:
+  run classify/run.py --backend jetson on ~20 bills, spot-check Hebrew, then full run
+  + anthropic/haiku second pass. (3) backfill: scripts/sync.py without --limit.
 
 ## Watermarks
 - last_bill_id_fetched: 2245052
